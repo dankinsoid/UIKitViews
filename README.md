@@ -3,6 +3,7 @@
 ## Description
 
 Easily use `UIView`s and `UIViewController`s in SwiftUI.
+`UIKitViews` is based on [key paths chaining](https://github.com/dankinsoid/VDChain.git)
 
 ## Examples
 
@@ -20,7 +21,7 @@ struct SomeView: View {
     var body: some View {
         NavigationView {
             UILabel()§
-                .text(text) // <- Use [key paths chaining](https://github.com/dankinsoid/VDChain.git) for updates.
+                .text(text) // <- Use key paths chaining for updates.
                 .font(.systemFont(ofSize: 23)
                 .do { label in 
                     // some custom action on redraw
