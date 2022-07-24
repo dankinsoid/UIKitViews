@@ -39,16 +39,24 @@ public struct UIKitView<Content: UIKitRepresentable>: View, Chaining {
 
 extension UIKitView {
 
-    public init<T>(_ make: @escaping @autoclosure () -> Content.Content, update: @escaping (Content.Content, Content.ViewContext) -> Void = { _, _ in }) where Content == _UIViewView<T> {
+    public init<T>(_ make: @escaping () -> Content.Content, update: @escaping (Content.Content, Content.ViewContext) -> Void = { _, _ in }) where Content == _UIViewView<T> {
         var wrapper = Content(make)
         wrapper.updater = update
         self = .init(wrapper)
     }
 
-    public init<T>(_ make: @escaping @autoclosure () -> Content.Content, update: @escaping (Content.Content, Content.ViewContext) -> Void = { _, _ in }) where Content == _UIViewControllerView<T> {
+    public init<T>(_ make: @escaping @autoclosure () -> Content.Content, update: @escaping (Content.Content, Content.ViewContext) -> Void = { _, _ in }) where Content == _UIViewView<T> {
+        self.init(make, update: update)
+    }
+    
+    public init<T>(_ make: @escaping () -> Content.Content, update: @escaping (Content.Content, Content.ViewContext) -> Void = { _, _ in }) where Content == _UIViewControllerView<T> {
         var wrapper = Content(make)
         wrapper.updater = update
         self = .init(wrapper)
+    }
+    
+    public init<T>(_ make: @escaping @autoclosure () -> Content.Content, update: @escaping (Content.Content, Content.ViewContext) -> Void = { _, _ in }) where Content == _UIViewControllerView<T> {
+        self.init(make, update: update)
     }
 }
 
