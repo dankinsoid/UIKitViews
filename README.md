@@ -22,7 +22,7 @@ struct SomeView: View {
         NavigationView {
             UILabel()§
                 .text(text) // <- Use key paths chaining for updates.
-                .font(.systemFont(ofSize: 23)
+                .font(.systemFont(ofSize: 23))
                 .do { label in 
                     // some custom action on redraw
                 }
