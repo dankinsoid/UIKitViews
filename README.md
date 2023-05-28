@@ -1,9 +1,9 @@
-# ${NAME}
+# UIKitView
 
-[![CI Status](https://img.shields.io/travis/dankinsoid/${NAME}.svg?style=flat)](https://travis-ci.org/dankinsoid/${NAME})
-[![Version](https://img.shields.io/cocoapods/v/${NAME}.svg?style=flat)](https://cocoapods.org/pods/${NAME})
-[![License](https://img.shields.io/cocoapods/l/${NAME}.svg?style=flat)](https://cocoapods.org/pods/${NAME})
-[![Platform](https://img.shields.io/cocoapods/p/${NAME}.svg?style=flat)](https://cocoapods.org/pods/${NAME})
+[![CI Status](https://img.shields.io/travis/dankinsoid/UIKitView.svg?style=flat)](https://travis-ci.org/dankinsoid/UIKitView)
+[![Version](https://img.shields.io/cocoapods/v/UIKitView.svg?style=flat)](https://cocoapods.org/pods/UIKitView)
+[![License](https://img.shields.io/cocoapods/l/UIKitView.svg?style=flat)](https://cocoapods.org/pods/UIKitView)
+[![Platform](https://img.shields.io/cocoapods/p/UIKitView.svg?style=flat)](https://cocoapods.org/pods/UIKitView)
 
 
 ## Description
@@ -29,10 +29,10 @@ import PackageDescription
 let package = Package(
   name: "SomeProject",
   dependencies: [
-    .package(url: "https://github.com/dankinsoid/${NAME}.git", from: "0.0.1")
+    .package(url: "https://github.com/dankinsoid/UIKitView.git", from: "0.0.1")
   ],
   targets: [
-    .target(name: "SomeProject", dependencies: ["${NAME}"])
+    .target(name: "SomeProject", dependencies: ["UIKitView"])
   ]
 )
 ```
@@ -44,7 +44,7 @@ $ swift build
 
 Add the following line to your Podfile:
 ```ruby
-pod '${NAME}'
+pod 'UIKitView'
 ```
 and run `pod update` from the podfile directory first.
 
@@ -54,4 +54,4 @@ dankinsoid, voidilov@gmail.com
 
 ## License
 
-${NAME} is available under the MIT license. See the LICENSE file for more info.
+UIKitView is available under the MIT license. See the LICENSE file for more info.
