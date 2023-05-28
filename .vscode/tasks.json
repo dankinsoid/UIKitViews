@@ -1,0 +1,35 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "options": {
+        "env": {
+            "iossdk": "$(xcrun --sdk iphonesimulator --show-sdk-path)",
+            "iosversion": "$(xcrun --sdk iphonesimulator --show-sdk-version)"
+        }
+    },
+    "tasks": [
+        {
+            "type": "swift",
+            "args": [
+                "build",
+                "--build-tests",
+                "-Xswiftc",
+                "-sdk",
+                "-Xswiftc",
+                "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator16.1.sdk",
+                "-Xswiftc",
+                "-target",
+                "-Xswiftc",
+                "x86_64-apple-ios16.1-simulator"
+            ],
+            "cwd": ".",
+            "problemMatcher": [
+                "$swiftc"
+            ],
+            "group": "build",
+            "label": "swift: Build",
+            "detail": "swift build --build-tests"
+        }
+    ]
+}
