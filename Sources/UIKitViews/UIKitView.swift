@@ -1,5 +1,5 @@
 import SwiftUI
-import VDChain
+@_exported import VDChain
 
 /// A `SwiftUI` view that represents a `UIKit` view (`UIView`, `UIViewController`).
 ///

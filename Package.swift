@@ -4,19 +4,19 @@
 import PackageDescription
 
 let package = Package(
-	name: "UIKitView",
+	name: "UIKitViews",
 	platforms: [
 		.iOS(.v13),
 	],
 	products: [
-		.library(name: "UIKitView", targets: ["UIKitView"]),
+		.library(name: "UIKitViews", targets: ["UIKitViews"]),
 	],
 	dependencies: [
 		.package(url: "https://github.com/dankinsoid/VDChain.git", from: "2.7.3"),
 	],
 	targets: [
 		.target(
-			name: "UIKitView",
+			name: "UIKitViews",
 			dependencies: [
 				"VDChain",
 			]

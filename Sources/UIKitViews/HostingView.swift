@@ -24,6 +24,10 @@ open class HostingView<RootView: View>: UIView {
 		afterInit()
 	}
 
+	public convenience init(@ViewBuilder rootView: () -> RootView) {
+		self.init(rootView())
+	}
+
 	@available(*, unavailable)
 	public required init?(coder: NSCoder) {
 		fatalError("init(coder:) has not been implemented")
