@@ -1,0 +1,6 @@
+.swiftpm
+Package.resolved~main
+Package.resolved~main_0
+.build
+.idea
+**/.DS_Store

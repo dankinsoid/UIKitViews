@@ -1,0 +1,5 @@
+# 2 space indentation
+[*.swift]
+indent_style = tab
+indent_size = 2
+insert_final_newline = true
