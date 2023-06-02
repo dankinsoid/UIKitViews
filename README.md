@@ -44,6 +44,13 @@ If you need to access the environment, you can do it like this:
 ```swift
 @Environment(\UILabel.font) var uiLabelFont
 ```
+ You can also bind SwiftUI environments to `UIKitView`:
+ ```swift
+UIKitView {
+	UIScrollView()
+}
+.uiKitViewBind(environment: \.isScrollEnabled, to: \UIScrollView.isScrollEnabled)
+ ```
 ## Self-sizing with `uiKitViewFixedSize()`
 
 The library includes a method `uiKitViewFixedSize()` that allows the UIKit view to adjust its size dynamically according to its content. You can specify the axis for self-sizing:
@@ -98,7 +105,7 @@ import PackageDescription
 let package = Package(
   name: "SomeProject",
   dependencies: [
-    .package(url: "https://github.com/dankinsoid/UIKitViews.git", from: "1.1.2")
+    .package(url: "https://github.com/dankinsoid/UIKitViews.git", from: "1.2.0")
   ],
   targets: [
     .target(name: "SomeProject", dependencies: ["UIKitView"])

@@ -3,17 +3,117 @@ import SwiftUI
 public extension View {
 
 	/// Set the `UIKitView` environment value of the specified key path with the given value
-	func uiKitViewEnvironment<T: UIView, Value>(_ keyPath: ReferenceWritableKeyPath<T, Value>, _ value: Value) -> some View {
+	func uiKitViewEnvironment<T: UIView, Value>(
+		_ keyPath: ReferenceWritableKeyPath<T, Value>,
+		_ value: @escaping @autoclosure () -> Value
+	) -> some View {
 		transformEnvironment(\.uiKitView) {
 			$0.set(keyPath: keyPath, value: value)
 		}
 	}
 
 	/// Set the `UIKitView` environment value of the specified key path with the given value
-	func uiKitViewEnvironment<T: UIViewController, Value>(_ keyPath: ReferenceWritableKeyPath<T, Value>, _ value: Value) -> some View {
+	func uiKitViewEnvironment<T: UIViewController, Value>(
+		_ keyPath: ReferenceWritableKeyPath<T, Value>,
+		_ value: @escaping @autoclosure () -> Value
+	) -> some View {
 		transformEnvironment(\.uiKitView) {
 			$0.set(keyPath: keyPath, value: value)
 		}
+	}
+	
+	/// Binds SwiftUI environment to `UIKitView` environment
+	func uiKitViewBind<T: UIView, A, B>(
+		environment keyPath: KeyPath<EnvironmentValues, A>,
+		to viewKeyPath: ReferenceWritableKeyPath<T, B>,
+		transform: @escaping (A) -> B
+	) -> some View {
+		transformEnvironment(\.uiKitView) {
+			$0.set(keyPath: viewKeyPath) {
+				transform(Environment(keyPath).wrappedValue)
+			}
+		}
+	}
+	
+	/// Binds SwiftUI environment to `UIKitView` environment
+	func uiKitViewBind<T: UIView, A>(
+		environment keyPath: KeyPath<EnvironmentValues, A>,
+		to viewKeyPath: ReferenceWritableKeyPath<T, A>
+	) -> some View {
+		uiKitViewBind(environment: keyPath, to: viewKeyPath) { $0 }
+	}
+	
+	/// Binds SwiftUI environment to `UIKitView` environment
+	func uiKitViewBind<T: UIView, A>(
+		environment keyPath: KeyPath<EnvironmentValues, A>,
+		to viewKeyPath: ReferenceWritableKeyPath<T, A?>
+	) -> some View {
+		uiKitViewBind(environment: keyPath, to: viewKeyPath) { $0 }
+	}
+	
+	/// Binds SwiftUI environment to `UIKitView` environment
+	@available(iOS 14.0, tvOS 14.0, *)
+	func uiKitViewBind<T: UIView>(
+		environment keyPath: KeyPath<EnvironmentValues, Color>,
+		to viewKeyPath: ReferenceWritableKeyPath<T, UIColor>
+	) -> some View {
+		uiKitViewBind(environment: keyPath, to: viewKeyPath) { UIColor($0) }
+	}
+	
+	/// Binds SwiftUI environment to `UIKitView` environment
+	@available(iOS 14.0, tvOS 14.0, *)
+	func uiKitViewBind<T: UIView>(
+		environment keyPath: KeyPath<EnvironmentValues, Color>,
+		to viewKeyPath: ReferenceWritableKeyPath<T, UIColor?>
+	) -> some View {
+		uiKitViewBind(environment: keyPath, to: viewKeyPath) { UIColor($0) }
+	}
+	
+	/// Binds SwiftUI environment to `UIKitView` environment
+	func uiKitViewBind<T: UIViewController, A, B>(
+		environment keyPath: KeyPath<EnvironmentValues, A>,
+		to viewKeyPath: ReferenceWritableKeyPath<T, B>,
+		transform: @escaping (A) -> B
+	) -> some View {
+		transformEnvironment(\.uiKitView) {
+			$0.set(keyPath: viewKeyPath) {
+				transform(Environment(keyPath).wrappedValue)
+			}
+		}
+	}
+	
+	/// Binds SwiftUI environment to `UIKitView` environment
+	func uiKitViewBind<T: UIViewController, A>(
+		environment keyPath: KeyPath<EnvironmentValues, A>,
+		to viewKeyPath: ReferenceWritableKeyPath<T, A>
+	) -> some View {
+		uiKitViewBind(environment: keyPath, to: viewKeyPath) { $0 }
+	}
+	
+	/// Binds SwiftUI environment to `UIKitView` environment
+	func uiKitViewBind<T: UIViewController, A>(
+		environment keyPath: KeyPath<EnvironmentValues, A>,
+		to viewKeyPath: ReferenceWritableKeyPath<T, A?>
+	) -> some View {
+		uiKitViewBind(environment: keyPath, to: viewKeyPath) { $0 }
+	}
+	
+	/// Binds SwiftUI environment to `UIKitView` environment
+	@available(iOS 14.0, tvOS 14.0, *)
+	func uiKitViewBind<T: UIViewController>(
+		environment keyPath: KeyPath<EnvironmentValues, Color>,
+		to viewKeyPath: ReferenceWritableKeyPath<T, UIColor>
+	) -> some View {
+		uiKitViewBind(environment: keyPath, to: viewKeyPath) { UIColor($0) }
+	}
+	
+	/// Binds SwiftUI environment to `UIKitView` environment
+	@available(iOS 14.0, tvOS 14.0, *)
+	func uiKitViewBind<T: UIViewController>(
+		environment keyPath: KeyPath<EnvironmentValues, Color>,
+		to viewKeyPath: ReferenceWritableKeyPath<T, UIColor?>
+	) -> some View {
+		uiKitViewBind(environment: keyPath, to: viewKeyPath) { UIColor($0) }
 	}
 }
 
@@ -40,19 +140,19 @@ struct UIKitViewEnvironment {
 		}
 	}
 
-	mutating func set<Base, Value>(keyPath: ReferenceWritableKeyPath<Base, Value>, value: Value) {
+	mutating func set<Base, Value>(keyPath: ReferenceWritableKeyPath<Base, Value>, value: @escaping () -> Value) {
 		values[keyPath] = ValueAndSetter(value: value) {
-			($0 as? Base)?[keyPath: keyPath] = value
+			($0 as? Base)?[keyPath: keyPath] = value()
 		}
 	}
 
 	subscript<Base, Value>(_ keyPath: ReferenceWritableKeyPath<Base, Value>) -> Value? {
-		values[keyPath]?.value as? Value
+		values[keyPath]?.value() as? Value
 	}
 
 	private struct ValueAndSetter {
 
-		var value: Any
+		var value: () -> Any
 		var setter: (Any) -> Void
 	}
 }
