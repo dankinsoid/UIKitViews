@@ -36,6 +36,7 @@ VStack {
   }
 }
 .uiKitViewEnvironment(\UILabel.font, .systemFont(ofSize: 24))
+.uiKitViewFixedSize(.vertical)
 ```
 
 If you need to access the environment, you can do it like this:
@@ -47,19 +48,19 @@ If you need to access the environment, you can do it like this:
 
 The library includes a method `uiKitViewFixedSize()` that allows the UIKit view to adjust its size dynamically according to its content. You can specify the axis for self-sizing:
 
-- For self-sizing on both axes:
+- For self-sizing in both dimensions:
 
 ```swift
 .uiKitViewFixedSize()
 ```
 
-- For self-sizing mostly on the vertical axis:
+- For self-sizing mostly in the vertical dimension:
 
 ```swift
 .uiKitViewFixedSize(.vertical)
 ```
 
-- For self-sizing mostly on the horizontal axis:
+- For self-sizing mostly in the horizontal dimension:
 
 ```swift
 .uiKitViewFixedSize(.horizontal)
