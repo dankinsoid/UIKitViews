@@ -12,14 +12,11 @@ public struct AnyUIViewControllerRepresentable<Content: UIViewController>: UIKit
 		AnyUIRepresentableWrapper {
 			AnyUIViewControllerRepresentableIOS13(make: make, updater: updater, size: $0)
 		} iOS16: {
-			if #available(iOS 16.0, tvOS 16.0, *) {
-				AnyUIViewControllerRepresentableIOS16(make: make, updater: updater)
-			}
+			AnyUIViewControllerRepresentableIOS16(make: make, updater: updater)
 		}
 	}
 }
 
-@available(iOS 16.0, tvOS 16.0, *)
 private struct AnyUIViewControllerRepresentableIOS16<Content: UIViewController>: UIViewControllerRepresentable {
 
 	let make: () -> Content
@@ -34,11 +31,9 @@ private struct AnyUIViewControllerRepresentableIOS16<Content: UIViewController>:
 		updater(uiViewController)
 	}
 
+	@available(iOS 16.0, tvOS 16.0, *)
 	func sizeThatFits(_ proposal: ProposedViewSize, uiViewController: Content, context: Context) -> CGSize? {
-		uiViewController.view.fittingSizeFor(
-			width: selfSizedAxis.contains(.horizontal) ? nil : proposal.width,
-			height: selfSizedAxis.contains(.vertical) ? nil : proposal.height
-		)
+		uiViewController.view.fittingSizeFor(size: proposal, dimensions: selfSizedAxis)
 	}
 }
 

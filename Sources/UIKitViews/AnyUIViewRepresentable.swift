@@ -13,14 +13,11 @@ public struct AnyUIViewRepresentable<Content: UIView>: UIKitRepresentable {
 		AnyUIRepresentableWrapper {
 			AnyUIViewRepresentableIOS13(make: make, updater: updater, size: $0)
 		} iOS16: {
-			if #available(iOS 16.0, tvOS 16.0, *) {
-				AnyUIViewRepresentableIOS16(make: make, updater: updater)
-			}
+			AnyUIViewRepresentableIOS16(make: make, updater: updater)
 		}
 	}
 }
 
-@available(iOS 16.0, tvOS 16.0, *)
 private struct AnyUIViewRepresentableIOS16<Content: UIView>: UIViewRepresentable {
 
 	let make: () -> Content
@@ -35,11 +32,9 @@ private struct AnyUIViewRepresentableIOS16<Content: UIView>: UIViewRepresentable
 		updater(uiView)
 	}
 
+	@available(iOS 16.0, tvOS 16.0, *)
 	func sizeThatFits(_ proposal: ProposedViewSize, uiView: Content, context: Context) -> CGSize? {
-		uiView.fittingSizeFor(
-			width: selfSizedAxis.contains(.horizontal) ? nil : proposal.width,
-			height: selfSizedAxis.contains(.vertical) ? nil : proposal.height
-		)
+		uiView.fittingSizeFor(size: proposal, dimensions: selfSizedAxis)
 	}
 }
 
