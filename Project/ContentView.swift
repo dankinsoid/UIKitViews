@@ -11,11 +11,10 @@ struct ContentView: View {
 			Color.clear
 
 			UIKitView {
-				UIView().chain
+				UILabel().chain
+					.text(text)
+					.numberOfLines(0)
 					.backgroundColor(.systemBlue)
-					.do {
-						$0.heightAnchor.constraint(equalToConstant: 40).isActive = true
-					}
 			}
 			.logSize()
 
