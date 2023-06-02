@@ -9,6 +9,7 @@ UIKitViews is a part of [VDLayout](https://github.com/dankinsoid/VDLayout.git) l
 - Supports environment variables by `UIView`/`UIViewController` keypathes.
 - `HostingView`, an analogy of `UIHostingController` for UIView that supports updating by keypath.
 - `SelfSizingHostingController` - `UIHostingController` that matches the root view size.
+- Provides a `uiKitViewFixedSize()` method for dynamic self-sizing of the UIKit views.
 
 ## Usage
 
@@ -42,6 +43,30 @@ If you need to access the environment, you can do it like this:
 ```swift
 @Environment(\UILabel.font) var uiLabelFont
 ```
+## Self-sizing with `uiKitViewFixedSize()`
+
+The library includes a method `uiKitViewFixedSize()` that allows the UIKit view to adjust its size dynamically according to its content. You can specify the axis for self-sizing:
+
+- For self-sizing on both axes:
+
+```swift
+.uiKitViewFixedSize()
+```
+
+- For self-sizing mostly on the vertical axis:
+
+```swift
+.uiKitViewFixedSize(.vertical)
+```
+
+- For self-sizing mostly on the horizontal axis:
+
+```swift
+.uiKitViewFixedSize(.horizontal)
+```
+
+**⚠️ Warning**: The behavior of this method may slightly differ between iOS 16+ and previous versions, it's recommended to test on different iOS versions.\
+If you notice some undesirable differences, you can use the `uiKitViewUseWrapper(.always)` method to fix it.
 
 ## `HostingView` and `SelfSizingHostingController`
 
@@ -72,7 +97,7 @@ import PackageDescription
 let package = Package(
   name: "SomeProject",
   dependencies: [
-    .package(url: "https://github.com/dankinsoid/UIKitViews.git", from: "1.0.1")
+    .package(url: "https://github.com/dankinsoid/UIKitViews.git", from: "1.1.0")
   ],
   targets: [
     .target(name: "SomeProject", dependencies: ["UIKitView"])
