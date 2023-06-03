@@ -74,7 +74,6 @@ The library includes a method `uiKitViewFixedSize()` that allows the UIKit view 
 
 **⚠️ Warning**: The behavior of this method may slightly differ between iOS 16+ and previous versions, it's recommended to test on different iOS versions.\
 If you notice some undesirable differences, you can use the `uiKitViewUseWrapper(.always)` method to fix it.
-Absolutely, here's the addition for the README:
 
 ### uiKitViewContentMode(_:)
 
