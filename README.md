@@ -9,7 +9,7 @@ UIKitViews is a part of [VDLayout](https://github.com/dankinsoid/VDLayout.git) l
 - Supports environment variables by `UIView`/`UIViewController` keypathes.
 - `HostingView`, an analogy of `UIHostingController` for UIView that supports updating by keypath.
 - `SelfSizingHostingController` - `UIHostingController` that matches the root view size.
-- Provides a `uiKitViewFixedSize()` method for dynamic self-sizing of the UIKit views.
+- Provides `uiKitViewFixedSize()`, `uiKitViewContentMode()` methods for dynamic self-sizing of the UIKit views.
 
 ## Usage
 
@@ -36,7 +36,6 @@ VStack {
   }
 }
 .uiKitViewEnvironment(\UILabel.font, .systemFont(ofSize: 24))
-.uiKitViewFixedSize(.vertical)
 ```
 
 If you need to access the environment, you can do it like this:
@@ -75,6 +74,30 @@ The library includes a method `uiKitViewFixedSize()` that allows the UIKit view 
 
 **⚠️ Warning**: The behavior of this method may slightly differ between iOS 16+ and previous versions, it's recommended to test on different iOS versions.\
 If you notice some undesirable differences, you can use the `uiKitViewUseWrapper(.always)` method to fix it.
+Absolutely, here's the addition for the README:
+
+### uiKitViewContentMode(_:)
+
+The `uiKitViewContentMode(_:)` method adjusts the content resizing behavior of a UIView when its size is not fixed.
+You pass a `UIKitViewContentMode` value to this method to specify how you want the view to resize its content.
+
+It comes with two modes:
+- `.fill`: The content should resize to completely fill the view. The aspect ratio may not be preserved.
+- `.fit(Alignment)`: The UIView should resize to fit within the view while preserving its aspect ratio. The alignment parameter determines how the UIView is positioned within the view if there is extra space.
+
+Here's an example:
+
+```swift
+UIKitView {
+    UILabel().chain
+       .font(.system(34))
+       .textColor(.black)
+       .textAlignment(.left)
+}
+.uiKitViewFixedSize(.vertical)
+.uiKitViewContentMode(.fit(.trailing))
+```
+In this example, the UILabel will resize its content to fit within its bounds while preserving its aspect ratio. The content is positioned at the trailing edge of the UIKitView.
 
 ## `HostingView` and `SelfSizingHostingController`
 
@@ -105,7 +128,7 @@ import PackageDescription
 let package = Package(
   name: "SomeProject",
   dependencies: [
-    .package(url: "https://github.com/dankinsoid/UIKitViews.git", from: "1.2.0")
+    .package(url: "https://github.com/dankinsoid/UIKitViews.git", from: "1.3.0")
   ],
   targets: [
     .target(name: "SomeProject", dependencies: ["UIKitView"])

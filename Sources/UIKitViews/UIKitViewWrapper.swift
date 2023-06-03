@@ -4,6 +4,23 @@ final class UIKitViewWrapper<Content: UIView>: UIView {
 
 	let content: Content
 	var onUpdateSize: (CGSize?) -> Void = { _ in }
+	var expectedSize: CGSize? {
+		didSet {
+			guard oldValue != expectedSize else { return }
+			if let expectedSize {
+				updateSize(expectedSize)
+			}
+		}
+	}
+
+	var uiKitViewContentMode: UIKitViewContentMode = .fill {
+		didSet {
+			guard oldValue != uiKitViewContentMode else { return }
+			if let expectedSize {
+				updateSize(expectedSize)
+			}
+		}
+	}
 
 	var size: CGSize? {
 		didSet {
@@ -18,19 +35,19 @@ final class UIKitViewWrapper<Content: UIView>: UIView {
 	var selfSizedAxis: Axis.Set = [.vertical, .horizontal] {
 		didSet {
 			guard oldValue != selfSizedAxis else { return }
-			updateSize()
+			updateSize(expectedSize ?? frame.size)
 		}
 	}
 
-	override var frame: CGRect {
-		didSet {
-			guard oldValue != frame else { return }
-			content.frame = bounds
-			content.layoutIfNeeded()
-			guard oldValue.size != frame.size else { return }
-			updateSize()
-		}
-	}
+//	override var frame: CGRect {
+//		didSet {
+//			guard oldValue != frame else { return }
+//			content.frame = bounds
+//			content.layoutIfNeeded()
+//			guard oldValue.size != frame.size else { return }
+//			updateSize(frame.size)
+//		}
+//	}
 
 	override var intrinsicContentSize: CGSize {
 		guard let size else {
@@ -59,10 +76,11 @@ final class UIKitViewWrapper<Content: UIView>: UIView {
 		fatalError("Not implemented")
 	}
 
-	func updateSize() {
+	func updateSize(_ newValue: CGSize) {
 		size = content.fittingSizeFor(
-			width: selfSizedAxis.contains(.horizontal) ? nil : frame.width,
-			height: selfSizedAxis.contains(.vertical) ? nil : frame.height
+			width: selfSizedAxis.contains(.horizontal) ? nil : newValue.width,
+			height: selfSizedAxis.contains(.vertical) ? nil : newValue.height,
+			contentMode: uiKitViewContentMode
 		)
 	}
 }

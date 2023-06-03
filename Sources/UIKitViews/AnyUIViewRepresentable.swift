@@ -11,7 +11,7 @@ public struct AnyUIViewRepresentable<Content: UIView>: UIKitRepresentable {
 
 	public var body: some View {
 		AnyUIRepresentableWrapper {
-			AnyUIViewRepresentableIOS13(make: make, updater: updater, size: $0)
+			AnyUIViewRepresentableIOS13(make: make, updater: updater, expectedSize: $0, updateSize: $1)
 		} iOS16: {
 			AnyUIViewRepresentableIOS16(make: make, updater: updater)
 		}
@@ -23,6 +23,7 @@ private struct AnyUIViewRepresentableIOS16<Content: UIView>: UIViewRepresentable
 	let make: () -> Content
 	let updater: (Content) -> Void
 	@Environment(\.uiKitViewFixedSize) private var selfSizedAxis
+	@Environment(\.uiKitViewContentMode) private var uiKitViewContentMode
 
 	func makeUIView(context: Context) -> Content {
 		make()
@@ -34,7 +35,7 @@ private struct AnyUIViewRepresentableIOS16<Content: UIView>: UIViewRepresentable
 
 	@available(iOS 16.0, tvOS 16.0, *)
 	func sizeThatFits(_ proposal: ProposedViewSize, uiView: Content, context: Context) -> CGSize? {
-		uiView.fittingSizeFor(size: proposal, dimensions: selfSizedAxis)
+		uiView.fittingSizeFor(size: proposal, dimensions: selfSizedAxis, contentMode: uiKitViewContentMode)
 	}
 }
 
@@ -42,8 +43,10 @@ private struct AnyUIViewRepresentableIOS13<Content: UIView>: UIViewRepresentable
 
 	let make: () -> Content
 	let updater: (Content) -> Void
-	let size: (CGSize?) -> Void
+	let expectedSize: CGSize?
+	let updateSize: (CGSize?) -> Void
 	@Environment(\.uiKitViewFixedSize) private var selfSizedAxis
+	@Environment(\.uiKitViewContentMode) private var uiKitViewContentMode
 
 	func makeUIView(context: Context) -> UIKitViewWrapper<Content> {
 		UIKitViewWrapper(make())
@@ -51,7 +54,9 @@ private struct AnyUIViewRepresentableIOS13<Content: UIView>: UIViewRepresentable
 
 	func updateUIView(_ uiView: UIKitViewWrapper<Content>, context: Context) {
 		updater(uiView.content)
-		uiView.onUpdateSize = size
+		uiView.onUpdateSize = updateSize
+		uiView.expectedSize = expectedSize
+		uiView.uiKitViewContentMode = uiKitViewContentMode
 		uiView.selfSizedAxis = selfSizedAxis
 	}
 }

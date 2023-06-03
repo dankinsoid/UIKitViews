@@ -21,7 +21,7 @@ public extension View {
 			$0.set(keyPath: keyPath, value: value)
 		}
 	}
-	
+
 	/// Binds SwiftUI environment to `UIKitView` environment
 	func uiKitViewBind<T: UIView, A, B>(
 		environment keyPath: KeyPath<EnvironmentValues, A>,
@@ -34,7 +34,7 @@ public extension View {
 			}
 		}
 	}
-	
+
 	/// Binds SwiftUI environment to `UIKitView` environment
 	func uiKitViewBind<T: UIView, A>(
 		environment keyPath: KeyPath<EnvironmentValues, A>,
@@ -42,7 +42,7 @@ public extension View {
 	) -> some View {
 		uiKitViewBind(environment: keyPath, to: viewKeyPath) { $0 }
 	}
-	
+
 	/// Binds SwiftUI environment to `UIKitView` environment
 	func uiKitViewBind<T: UIView, A>(
 		environment keyPath: KeyPath<EnvironmentValues, A>,
@@ -50,7 +50,7 @@ public extension View {
 	) -> some View {
 		uiKitViewBind(environment: keyPath, to: viewKeyPath) { $0 }
 	}
-	
+
 	/// Binds SwiftUI environment to `UIKitView` environment
 	@available(iOS 14.0, tvOS 14.0, *)
 	func uiKitViewBind<T: UIView>(
@@ -59,7 +59,7 @@ public extension View {
 	) -> some View {
 		uiKitViewBind(environment: keyPath, to: viewKeyPath) { UIColor($0) }
 	}
-	
+
 	/// Binds SwiftUI environment to `UIKitView` environment
 	@available(iOS 14.0, tvOS 14.0, *)
 	func uiKitViewBind<T: UIView>(
@@ -68,7 +68,7 @@ public extension View {
 	) -> some View {
 		uiKitViewBind(environment: keyPath, to: viewKeyPath) { UIColor($0) }
 	}
-	
+
 	/// Binds SwiftUI environment to `UIKitView` environment
 	func uiKitViewBind<T: UIViewController, A, B>(
 		environment keyPath: KeyPath<EnvironmentValues, A>,
@@ -81,7 +81,7 @@ public extension View {
 			}
 		}
 	}
-	
+
 	/// Binds SwiftUI environment to `UIKitView` environment
 	func uiKitViewBind<T: UIViewController, A>(
 		environment keyPath: KeyPath<EnvironmentValues, A>,
@@ -89,7 +89,7 @@ public extension View {
 	) -> some View {
 		uiKitViewBind(environment: keyPath, to: viewKeyPath) { $0 }
 	}
-	
+
 	/// Binds SwiftUI environment to `UIKitView` environment
 	func uiKitViewBind<T: UIViewController, A>(
 		environment keyPath: KeyPath<EnvironmentValues, A>,
@@ -97,7 +97,7 @@ public extension View {
 	) -> some View {
 		uiKitViewBind(environment: keyPath, to: viewKeyPath) { $0 }
 	}
-	
+
 	/// Binds SwiftUI environment to `UIKitView` environment
 	@available(iOS 14.0, tvOS 14.0, *)
 	func uiKitViewBind<T: UIViewController>(
@@ -106,7 +106,7 @@ public extension View {
 	) -> some View {
 		uiKitViewBind(environment: keyPath, to: viewKeyPath) { UIColor($0) }
 	}
-	
+
 	/// Binds SwiftUI environment to `UIKitView` environment
 	@available(iOS 14.0, tvOS 14.0, *)
 	func uiKitViewBind<T: UIViewController>(

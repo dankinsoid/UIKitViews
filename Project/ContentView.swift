@@ -3,30 +3,39 @@ import UIKitViews
 
 struct ContentView: View {
 
-	let text = "Hello, world! Hello, world! Hello, world! Hello, world!\nHello, world! Hello, world!"
-	@State var size: CGSize = .zero
+	private let text = "Hello, world! Hello, world! Hello, world! Hello, world! Hello, world! Hello, world!"
+	@State private var value = 0.0
 
 	var body: some View {
-		VStack(alignment: .leading, spacing: 0) {
-			Color.clear
-
-			UIKitView {
-				UILabel().chain
-					.text(text)
-					.numberOfLines(0)
-					.backgroundColor(.systemBlue)
+		VStack {
+			Spacer()
+			HStack {
+				Color.red
+					.frame(width: value)
+				UIKitView {
+					UILabel().chain
+						.numberOfLines(0)
+						.text(text)
+						.backgroundColor(.systemBlue)
+						.textColor(.white)
+						.do {
+							$0.setContentHuggingPriority(.required, for: .vertical)
+						}
+				}
+				.background(Color.red)
+				.uiKitViewFixedSize(.vertical)
+				.uiKitViewContentMode(.fit(.leading))
 			}
-			.logSize()
-
-			Text(text)
-				.background(Color.green)
-				.logSize()
+			HStack {
+				Color.red
+					.frame(width: value)
+				Text(text)
+					.background(Color.green)
+					.foregroundColor(.white)
+			}
+			Slider(value: $value, in: 0 ... 300)
 		}
-		.background(Color.black.opacity(0.1))
 		.padding()
-		.background(Color.black.opacity(0.1))
-		.uiKitViewFixedSize(.vertical)
-		.uiKitViewUseWrapper(.always)
 	}
 }
 
@@ -36,7 +45,7 @@ extension View {
 		overlay(GeometryReader { proxy in
 			Text("\(Int(proxy.size.width)) × \(Int(proxy.size.height))")
 				.foregroundColor(.white)
-				.background(.black)
+				.background(Color.black)
 				.font(.footnote)
 				.onChange(of: proxy.size) { newValue in
 					size?.wrappedValue = newValue
