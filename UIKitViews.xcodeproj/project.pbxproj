@@ -14,7 +14,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		8325E6572A2B27150097FA41 /* UIKitViews */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = UIKitViews; sourceTree = "<group>"; };
+		832E25572A30A3C000C8FE0E /* UIKitViews */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = UIKitViews; sourceTree = "<group>"; };
 		834CA2F52A24A4EB0077E800 /* Develop.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Develop.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		834CA30B2A24A58F0077E800 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		834CA30C2A24A58F0077E800 /* UIKitViewsApp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIKitViewsApp.swift; sourceTree = "<group>"; };
@@ -64,7 +64,7 @@
 		834CA31D2A24A5AF0077E800 /* Packages */ = {
 			isa = PBXGroup;
 			children = (
-				8325E6572A2B27150097FA41 /* UIKitViews */,
+				832E25572A30A3C000C8FE0E /* UIKitViews */,
 			);
 			name = Packages;
 			sourceTree = "<group>";

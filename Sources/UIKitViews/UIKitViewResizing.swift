@@ -83,7 +83,12 @@ public enum UIKitViewContentMode: Equatable {
 
 	/// - `fill`: The UIView should resize to completely fill the view.
 	case fill
+    
+    /// - `selfsize`: A wrapped UIKitView matches the UIView content size as possible
+    @available(iOS 16.0, tvOS 16.0, *)
+    case selfsize
 
+    /// - `fit`: The UIView should resize to fit within the view while preserving its aspect ratio, the UIView is positioned at center.
 	public static var fit: UIKitViewContentMode {
 		.fit(.center)
 	}
@@ -92,7 +97,7 @@ public enum UIKitViewContentMode: Equatable {
 		switch self {
 		case let .fit(alignment):
 			return alignment
-		case .fill:
+        default:
 			return .center
 		}
 	}
