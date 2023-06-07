@@ -23,7 +23,8 @@ UIKitView {
 }
 .text(title) // Updatable properties
 ```
-Note: `.text` and `font` are not hardcoded methods, it's a property chaining, so any properties of your UIKit views can be used as modifier methods with `UIKitView`.\
+Note: `.text` and `font` are not hardcoded methods, it's a property chaining, so any properties of your UIKit views can be used as modifier methods with `UIKitView`.
+
 UIKitView also supports environment variables by `UIView`/`UIViewController` keypathes:
 
 ```swift
