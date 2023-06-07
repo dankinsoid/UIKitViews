@@ -14,10 +14,10 @@ struct AnyUIRepresentableWrapper<IOS13: View, IOS16: View>: View {
 	var body: some View {
 		if #available(iOS 16.0, tvOS 16.0, *), uiKitViewWrapperPolicy == .upToIOS16 {
 			iOS16
-                .fixedFrame(
-                    for: uiKitViewContentMode == .selfsize ? [.horizontal, .vertical] : selfSizedAxis,
-                    alignment: uiKitViewContentMode.alignment
-                )
+				.fixedFrame(
+					for: uiKitViewContentMode == .selfsize ? [.horizontal, .vertical] : selfSizedAxis,
+					alignment: uiKitViewContentMode.alignment
+				)
 		} else {
 			iOS13(expectedSize) {
 				size = $0

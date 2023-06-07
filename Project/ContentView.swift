@@ -9,22 +9,22 @@ struct ContentView: View {
 	var body: some View {
 		VStack {
 			Spacer()
-            HStack {
-                Color.red
-                    .frame(width: value)
-                UIKitView {
-                    UILabel().chain
-                        .numberOfLines(0)
-                        .text(text)
-                        .backgroundColor(.systemBlue)
-                        .textColor(.white)
-                        .do {
-                            $0.setContentHuggingPriority(.required, for: .vertical)
-                        }
-                }
-                .background(Color.red)
-                .uiKitViewFixedSize(.vertical)
-                .uiKitViewContentMode(.fit(.leading))
+			HStack {
+				Color.red
+					.frame(width: value)
+				UIKitView {
+					UILabel().chain
+						.numberOfLines(0)
+						.text(text)
+						.backgroundColor(.systemBlue)
+						.textColor(.white)
+						.do {
+							$0.setContentHuggingPriority(.required, for: .vertical)
+						}
+				}
+				.background(Color.red)
+				.uiKitViewFixedSize(.vertical)
+				.uiKitViewContentMode(.fit(.leading))
 			}
 			HStack {
 				Color.red
