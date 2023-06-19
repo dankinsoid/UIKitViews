@@ -8,21 +8,29 @@ import SwiftUI
 /// At creation time, specify an autoclosure that creates the `UIKit` view.
 /// You can set view properties via method chaining and `uiKitViewEnvironment` modifier.
 /// Use the `UIKitView` like you would any other view.
-public typealias UIKitView<Content: UIKitRepresentable> = Chain<UIKitViewChaining<Content>>
+public typealias UIKitView<Content: UIKitRepresentable> = Chain<UIKitViewChain<Content>>
 
-public struct UIKitViewChaining<Representable: UIKitRepresentable>: View, Chaining, UIKitRepresentableWrapper {
+public protocol UIKitViewChaining<Root>: Chaining {
+    
+    associatedtype Body: View
+    
+    func body(values: ChainValues<Root>) -> Body
+}
+
+public struct UIKitViewChain<Representable: UIKitRepresentable>: UIKitViewChaining, UIKitRepresentableWrapper {
+    
+    public typealias Root = Representable.Content
 
 	private let representable: Representable
 	@Environment(\.uiKitView) private var environment
-	@Environment(UIKitViewChainKey<Representable.Content>.self) private var applier
 
-	public var body: some View {
+	public func body(values: ChainValues<Root>) -> Representable {
 		var result = representable
 		let updater = result.updater
 		result.updater = {
 			var view = $0
 			updater(view)
-			applier(&view)
+            values.apply(&view)
 			environment.apply(for: view)
 		}
 		return result
@@ -31,6 +39,4 @@ public struct UIKitViewChaining<Representable: UIKitRepresentable>: View, Chaini
 	init(_ representable: Representable) {
 		self.representable = representable
 	}
-
-	public func apply(on root: inout Representable.Content) {}
 }

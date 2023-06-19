@@ -3,14 +3,14 @@ import SwiftUI
 public extension UIKitView {
 
 	init<T>(
-		_ make: @escaping () -> Base.Root
-	) where Base == UIKitViewChaining<AnyUIViewRepresentable<T>> {
-		self = UIKitViewChaining(AnyUIViewRepresentable(make)).wrap()
+        _ make: @escaping () -> Base.Root
+	) where Base == UIKitViewChain<AnyUIViewRepresentable<T>> {
+		self = UIKitViewChain(AnyUIViewRepresentable(make)).wrap()
 	}
 
 	init<C: ValueChaining>(
 		_ make: @escaping () -> Chain<C>
-	) where Base == UIKitViewChaining<AnyUIViewRepresentable<C.Root>> {
+	) where Base == UIKitViewChain<AnyUIViewRepresentable<C.Root>> {
 		self.init {
 			make().apply()
 		}
@@ -18,13 +18,13 @@ public extension UIKitView {
 
 	init<T>(
 		_ make: @escaping () -> Base.Root
-	) where Base == UIKitViewChaining<AnyUIViewControllerRepresentable<T>> {
-		self = UIKitViewChaining(AnyUIViewControllerRepresentable(make)).wrap()
+	) where Base == UIKitViewChain<AnyUIViewControllerRepresentable<T>> {
+		self = UIKitViewChain(AnyUIViewControllerRepresentable(make)).wrap()
 	}
 
 	init<C: ValueChaining>(
 		_ make: @escaping () -> Chain<C>
-	) where Base == UIKitViewChaining<AnyUIViewControllerRepresentable<C.Root>> {
+	) where Base == UIKitViewChain<AnyUIViewControllerRepresentable<C.Root>> {
 		self.init {
 			make().apply()
 		}
