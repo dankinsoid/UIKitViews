@@ -3,7 +3,7 @@ import SwiftUI
 public struct AnyUIViewControllerRepresentable<Content: UIViewController>: UIKitRepresentable {
 
 	let make: () -> Content
-	public var updater: (Content) -> Void = { _ in }
+	public var updater: (Content, UIKitRepresentableContext) -> Void = { _, _ in }
 	public init(_ make: @escaping () -> Content) {
 		self.make = make
 	}
@@ -20,7 +20,7 @@ public struct AnyUIViewControllerRepresentable<Content: UIViewController>: UIKit
 private struct AnyUIViewControllerRepresentableIOS16<Content: UIViewController>: UIViewControllerRepresentable {
 
 	let make: () -> Content
-	public var updater: (Content) -> Void = { _ in }
+	public var updater: (Content, UIKitRepresentableContext) -> Void = { _, _ in }
 	@Environment(\.uiKitViewFixedSize) private var selfSizedAxis
 	@Environment(\.uiKitViewContentMode) private var uiKitViewContentMode
 
@@ -29,7 +29,7 @@ private struct AnyUIViewControllerRepresentableIOS16<Content: UIViewController>:
 	}
 
 	func updateUIViewController(_ uiViewController: Content, context: Context) {
-		updater(uiViewController)
+        updater(uiViewController, UIKitRepresentableContext(transaction: context.transaction, environment: context.environment))
 	}
 
 	@available(iOS 16.0, tvOS 16.0, *)
@@ -41,7 +41,7 @@ private struct AnyUIViewControllerRepresentableIOS16<Content: UIViewController>:
 private struct AnyUIViewControllerRepresentableIOS13<Content: UIViewController>: UIViewControllerRepresentable {
 
 	let make: () -> Content
-	public var updater: (Content) -> Void = { _ in }
+	public var updater: (Content, UIKitRepresentableContext) -> Void = { _, _ in }
 	let expectedSize: CGSize?
 	let updateSize: (CGSize?) -> Void
 	@Environment(\.uiKitViewFixedSize) private var selfSizedAxis
@@ -52,7 +52,7 @@ private struct AnyUIViewControllerRepresentableIOS13<Content: UIViewController>:
 	}
 
 	func updateUIViewController(_ uiViewController: UIKitViewControllerWrapper<Content>, context: Context) {
-		updater(uiViewController.content)
+		updater(uiViewController.content, UIKitRepresentableContext(transaction: context.transaction, environment: context.environment))
 		uiViewController.wrapper.onUpdateSize = updateSize
 		uiViewController.wrapper.expectedSize = expectedSize
 		uiViewController.wrapper.uiKitViewContentMode = uiKitViewContentMode

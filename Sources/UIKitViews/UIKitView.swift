@@ -29,8 +29,11 @@ public struct UIKitViewChain<Representable: UIKitRepresentable>: UIKitViewChaini
 		let updater = result.updater
 		result.updater = {
 			var view = $0
-			updater(view)
-            values.apply(&view)
+            var values = values
+            values.transaction = $1.transaction
+            values.environment = $1.environment
+			updater(view, $1)
+            values.apply(&view, values)
 			environment.apply(for: view)
 		}
 		return result
@@ -39,4 +42,20 @@ public struct UIKitViewChain<Representable: UIKitRepresentable>: UIKitViewChaini
 	init(_ representable: Representable) {
 		self.representable = representable
 	}
+}
+
+public extension ChainValues {
+    
+    var transaction: Transaction {
+        get { get(\.transaction) ?? Transaction() }
+        set { set(\.transaction, newValue) }
+    }
+}
+
+public extension ChainValues {
+    
+    var environment: EnvironmentValues {
+        get { get(\.environment) ?? EnvironmentValues() }
+        set { set(\.environment, newValue) { _, new in new } }
+    }
 }

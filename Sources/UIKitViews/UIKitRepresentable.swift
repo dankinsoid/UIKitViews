@@ -8,6 +8,12 @@ public protocol UIKitRepresentableWrapper {
 public protocol UIKitRepresentable<Content>: View {
 
 	associatedtype Content
-	var updater: (Content) -> Void { get set }
+	var updater: (Content, UIKitRepresentableContext) -> Void { get set }
 	init(_ make: @escaping () -> Content)
+}
+
+public struct UIKitRepresentableContext {
+    
+    public let transaction: Transaction
+    public let environment: EnvironmentValues
 }

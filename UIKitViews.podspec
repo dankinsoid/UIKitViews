@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'UIKitViews'
-  s.version          = '1.4.0'
+  s.version          = '1.5.0'
   s.summary          = 'A short description of UIKitView.'
   s.description      = <<-DESC
 TODO: Add long description of the pod here.

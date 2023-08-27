@@ -128,7 +128,7 @@ import PackageDescription
 let package = Package(
   name: "SomeProject",
   dependencies: [
-    .package(url: "https://github.com/dankinsoid/UIKitViews.git", from: "1.4.0")
+    .package(url: "https://github.com/dankinsoid/UIKitViews.git", from: "1.5.0")
   ],
   targets: [
     .target(name: "SomeProject", dependencies: ["UIKitView"])

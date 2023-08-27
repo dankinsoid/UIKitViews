@@ -12,7 +12,7 @@ let package = Package(
 		.library(name: "UIKitViews", targets: ["UIKitViews"]),
 	],
 	dependencies: [
-		.package(url: "https://github.com/dankinsoid/VDChain.git", from: "3.0.0"),
+		.package(url: "https://github.com/dankinsoid/VDChain.git", from: "3.6.0"),
 	],
 	targets: [
 		.target(

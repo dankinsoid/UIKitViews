@@ -5,8 +5,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/dankinsoid/VDChain.git",
       "state" : {
-        "revision" : "513e915aaf457edd00851fbe1a9b78f2f573fc8b",
-        "version" : "3.0.0"
+        "revision" : "c7f560dde99d999927e0fc12fad6ceb9274c17b3",
+        "version" : "3.6.0"
       }
     }
   ],

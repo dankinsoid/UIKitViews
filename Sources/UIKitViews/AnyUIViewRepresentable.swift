@@ -3,7 +3,7 @@ import SwiftUI
 public struct AnyUIViewRepresentable<Content: UIView>: UIKitRepresentable {
 
 	let make: () -> Content
-	public var updater: (Content) -> Void = { _ in }
+	public var updater: (Content, UIKitRepresentableContext) -> Void = { _, _ in }
 
 	public init(_ make: @escaping () -> Content) {
 		self.make = make
@@ -21,7 +21,7 @@ public struct AnyUIViewRepresentable<Content: UIView>: UIKitRepresentable {
 private struct AnyUIViewRepresentableIOS16<Content: UIView>: UIViewRepresentable {
 
 	let make: () -> Content
-	let updater: (Content) -> Void
+	let updater: (Content, UIKitRepresentableContext) -> Void
 	@Environment(\.uiKitViewFixedSize) private var selfSizedAxis
 	@Environment(\.uiKitViewContentMode) private var uiKitViewContentMode
 
@@ -30,7 +30,7 @@ private struct AnyUIViewRepresentableIOS16<Content: UIView>: UIViewRepresentable
 	}
 
 	func updateUIView(_ uiView: Content, context: Context) {
-		updater(uiView)
+		updater(uiView, UIKitRepresentableContext(transaction: context.transaction, environment: context.environment))
 	}
 
 	@available(iOS 16.0, tvOS 16.0, *)
@@ -42,7 +42,7 @@ private struct AnyUIViewRepresentableIOS16<Content: UIView>: UIViewRepresentable
 private struct AnyUIViewRepresentableIOS13<Content: UIView>: UIViewRepresentable {
 
 	let make: () -> Content
-	let updater: (Content) -> Void
+	let updater: (Content, UIKitRepresentableContext) -> Void
 	let expectedSize: CGSize?
 	let updateSize: (CGSize?) -> Void
 	@Environment(\.uiKitViewFixedSize) private var selfSizedAxis
@@ -53,7 +53,7 @@ private struct AnyUIViewRepresentableIOS13<Content: UIView>: UIViewRepresentable
 	}
 
 	func updateUIView(_ uiView: UIKitViewWrapper<Content>, context: Context) {
-		updater(uiView.content)
+		updater(uiView.content, UIKitRepresentableContext(transaction: context.transaction, environment: context.environment))
 		uiView.onUpdateSize = updateSize
 		uiView.expectedSize = expectedSize
 		uiView.uiKitViewContentMode = uiKitViewContentMode
