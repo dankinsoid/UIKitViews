@@ -7,7 +7,7 @@ final class UIKitViewControllerWrapper<Content: UIViewController>: UIViewControl
 
 	init(_ content: Content) {
 		self.content = content
-		super.init()
+		super.init(nibName: nil, bundle: nil)
 		content.willMove(toParent: self)
 		addChild(content)
 		content.didMove(toParent: self)
