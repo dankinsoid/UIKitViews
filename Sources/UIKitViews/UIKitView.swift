@@ -22,19 +22,18 @@ public struct UIKitViewChain<Representable: UIKitRepresentable>: UIKitViewChaini
     public typealias Root = Representable.Content
 
 	private let representable: Representable
-	@Environment(\.uiKitView) private var environment
 
 	public func body(values: ChainValues<Root>) -> Representable {
 		var result = representable
 		let updater = result.updater
-		result.updater = { [environment] in
-			var view = $0
+		result.updater = { view, context in
+			var view = view
             var values = values
-            values.transaction = $1.transaction
-            values.environment = $1.environment
-			updater(view, $1)
+            values.transaction = context.transaction
+            values.environment = context.environment
+			updater(view, context)
             values.apply(&view, values)
-			environment.apply(for: view)
+            context.environment.uiKitView.apply(for: view)
 		}
 		return result
 	}
