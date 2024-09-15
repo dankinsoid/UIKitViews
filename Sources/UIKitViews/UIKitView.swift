@@ -27,7 +27,7 @@ public struct UIKitViewChain<Representable: UIKitRepresentable>: UIKitViewChaini
 	public func body(values: ChainValues<Root>) -> Representable {
 		var result = representable
 		let updater = result.updater
-		result.updater = {
+		result.updater = { [environment] in
 			var view = $0
             var values = values
             values.transaction = $1.transaction
