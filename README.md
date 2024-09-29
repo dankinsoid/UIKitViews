@@ -77,6 +77,9 @@ The library includes a method `uiKitViewFixedSize()` that allows the UIKit view 
 .uiKitViewFixedSize(.horizontal)
 ```
 
+> [!NOTE]
+> If you know the height or width of your view, it’s more reliable to set it using the SwiftUI `frame` modifier instead of `uiKitViewFixedSize`.
+
 > [!WARNING]
 > The behavior of these methods may slightly differ between iOS 16+ and previous versions, it's recommended to test on different iOS versions.\
 If you notice some undesirable differences, you can use the `uiKitViewUseWrapper(.always)` method to fix it.
