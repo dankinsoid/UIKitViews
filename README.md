@@ -33,9 +33,9 @@ UIKitViews provides a special operator `§` that allows you to create a `UIKitVi
 
 ```swift
 UILabel()§
-	.font(.systemFont(ofSize: 24)) 
-	.textColor(.black)
-	.text(title)
+  .font(.systemFont(ofSize: 24)) 
+  .textColor(.black)
+  .text(title)
 ```
 
 ## Environments
