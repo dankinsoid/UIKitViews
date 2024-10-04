@@ -22,7 +22,11 @@ UIKitView {
 }
 .text(title) // Updatable properties
 ```
-Note: `.text` and `font` are not hardcoded methods, it's a property chaining, so any properties of your UIKit views can be used as modifier methods with `UIKitView`.
+> [!NOTE]
+> The `UIKitView` body closure is called only once when the view is created, so there is no reason to use any updatable variables in this closure. However, it’s the perfect place to set up constant parameters, such as constraints or fonts, for example.
+
+> [!NOTE]
+> `.text`, `.textColor `, and `.font` is this example are not hardcoded methods; they are key path chains. This means any properties of your UIKit views can be used as modifier methods with `UIKitView`.
 
 ### Operator
 UIKitViews provides a special operator `§` that allows you to create a `UIKitView` more concisely with an autoclosure:
@@ -36,7 +40,7 @@ UILabel()§
 
 ## Environments
 
-UIKitView also supports environment variables by `UIView`/`UIViewController` keypathes:
+`UIKitView` also supports environment variables by `UIView`/`UIViewController` keypathes:
 
 ```swift
 VStack {
@@ -84,7 +88,11 @@ The library includes a method `uiKitViewFixedSize()` that allows the UIKit view 
 .uiKitViewFixedSize(.horizontal)
 ```
 
-**⚠️ Warning**: The behavior of this method may slightly differ between iOS 16+ and previous versions, it's recommended to test on different iOS versions.\
+> [!NOTE]
+> If you know the height or width of your view, it’s more reliable to set it using the SwiftUI `frame` modifier instead of `uiKitViewFixedSize`.
+
+> [!WARNING]
+> The behavior of these methods may slightly differ between iOS 16+ and previous versions, it's recommended to test on different iOS versions.\
 If you notice some undesirable differences, you can use the `uiKitViewUseWrapper(.always)` method to fix it.
 
 ### uiKitViewContentMode(_:)
