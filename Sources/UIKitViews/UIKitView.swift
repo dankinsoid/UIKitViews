@@ -3,9 +3,18 @@ import SwiftUI
 
 /// A `SwiftUI` view that represents a `UIKit` view (`UIView`, `UIViewController`).
 ///
+/// ```swift
+/// UIKitView {
+///     UILabel().chain
+/// 	    .font(.systemFont(ofSize: 24)) // Constant properties
+/// 	    .textColor(.black)
+/// }
+/// .text(title) // Updatable properties
+/// ```
+///
 ///  - Overview:
 /// Create a `UIKitView` object when you want to integrate `UIKit` views into a `SwiftUI` view hierarchy.
-/// At creation time, specify an autoclosure that creates the `UIKit` view.
+/// At creation time, specify an closure that creates the `UIKit` view.
 /// You can set view properties via method chaining and `uiKitViewEnvironment` modifier.
 /// Use the `UIKitView` like you would any other view.
 public typealias UIKitView<Content: UIKitRepresentable> = Chain<UIKitViewChain<Content>>

@@ -12,7 +12,6 @@ UIKitViews is a part of [VDLayout](https://github.com/dankinsoid/VDLayout.git) l
 - Provides `uiKitViewFixedSize()`, `uiKitViewContentMode()` methods for dynamic self-sizing of the UIKit views.
 
 ## Usage
-
 Using UIKitViews is as simple as placing the `UIView` or `UIViewController` you want within the `UIKitView` closure:
 
 ```swift
@@ -24,6 +23,18 @@ UIKitView {
 .text(title) // Updatable properties
 ```
 Note: `.text` and `font` are not hardcoded methods, it's a property chaining, so any properties of your UIKit views can be used as modifier methods with `UIKitView`.
+
+### Operator
+UIKitViews provides a special operator `§` that allows you to create a `UIKitView` more concisely with an autoclosure:
+
+```swift
+UILabel()§
+	.font(.systemFont(ofSize: 24)) 
+	.textColor(.black)
+	.text(title)
+```
+
+## Environments
 
 UIKitView also supports environment variables by `UIView`/`UIViewController` keypathes:
 
