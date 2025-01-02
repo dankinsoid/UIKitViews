@@ -1,7 +1,7 @@
 # UIKitViews
 
 UIKitViews is a SwiftUI wrapper around `UIView` and `UIViewController`. It provides seamless integration of UIKit components with the SwiftUI framework. The UIKitView wrapper makes it incredibly easy to add and manipulate UIKit views and view controllers right from your SwiftUI views.\
-UIKitViews is a part of [VDLayout](https://github.com/dankinsoid/VDLayout.git) library that provides a DSL syntaxis for UIKit views and view controllers.
+UIKitViews is built on top of [VDChain](https://github.com/dankinsoid/VDChain.git) and is a part of [VDLayout](https://github.com/dankinsoid/VDLayout.git) library that provides a DSL syntaxis for UIKit views and view controllers.
 
 ## Features
 

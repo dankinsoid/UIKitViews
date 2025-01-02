@@ -4,3 +4,5 @@ Package.resolved~main_0
 .build
 .idea
 **/.DS_Store
+.aider*
+.env
