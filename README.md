@@ -1,15 +1,15 @@
 # UIKitViews
 
-UIKitViews is a SwiftUI wrapper around `UIView` and `UIViewController`. It provides seamless integration of UIKit components with the SwiftUI framework. The UIKitView wrapper makes it incredibly easy to add and manipulate UIKit views and view controllers right from your SwiftUI views.\
-UIKitViews is built on top of [VDChain](https://github.com/dankinsoid/VDChain.git) and is a part of [VDLayout](https://github.com/dankinsoid/VDLayout.git) library that provides a DSL syntaxis for UIKit views and view controllers.
+UIKitViews is a SwiftUI wrapper around `UIView` and `UIViewController`. It provides seamless integration of UIKit components with the SwiftUI framework. The UIKitView wrapper makes it incredibly easy to add and manipulate UIKit views and view controllers directly from your SwiftUI views.\
+UIKitViews is built on top of [VDChain](https://github.com/dankinsoid/VDChain.git) and is part of the [VDLayout](https://github.com/dankinsoid/VDLayout.git) library that provides DSL syntax for UIKit views and view controllers.
 
 ## Features
 
-- Straightforward implementation of UIKit components into SwiftUI environment.
-- Supports environment variables by `UIView`/`UIViewController` keypathes.
-- `HostingView`, an analogy of `UIHostingController` for UIView that supports updating by keypath.
-- `SelfSizingHostingController` - `UIHostingController` that matches the root view size.
-- Provides `uiKitViewFixedSize()`, `uiKitViewContentMode()` methods for dynamic self-sizing of the UIKit views.
+- Straightforward integration of UIKit components into SwiftUI environment
+- Support for environment variables through `UIView`/`UIViewController` keypaths
+- `HostingView`, an analog of `UIHostingController` for UIView that supports updating via keypath
+- `SelfSizingHostingController` - a `UIHostingController` that matches the root view size
+- Provides `uiKitViewFixedSize()` and `uiKitViewContentMode()` methods for dynamic self-sizing of UIKit views
 
 ## Usage
 Using UIKitViews is as simple as placing the `UIView` or `UIViewController` you want within the `UIKitView` closure:
@@ -26,7 +26,7 @@ UIKitView {
 > The `UIKitView` body closure is called only once when the view is created, so there is no reason to use any updatable variables in this closure. However, it’s the perfect place to set up constant parameters, such as constraints or fonts, for example.
 
 > [!NOTE]
-> `.text`, `.textColor `, and `.font` is this example are not hardcoded methods; they are key path chains. This means any properties of your UIKit views can be used as modifier methods with `UIKitView`.
+> `.text`, `.textColor`, and `.font` in this example are not hardcoded methods; they are keypath chains. This means any properties of your UIKit views can be used as modifier methods with `UIKitView`.
 
 ### Operator
 UIKitViews provides a special operator `§` that allows you to create a `UIKitView` more concisely with an autoclosure:
@@ -40,7 +40,7 @@ UILabel()§
 
 ## Environments
 
-`UIKitView` also supports environment variables by `UIView`/`UIViewController` keypathes:
+`UIKitView` also supports environment variables through `UIView`/`UIViewController` keypaths:
 
 ```swift
 VStack {
@@ -92,8 +92,8 @@ The library includes a method `uiKitViewFixedSize()` that allows the UIKit view 
 > If you know the height or width of your view, it’s more reliable to set it using the SwiftUI `frame` modifier instead of `uiKitViewFixedSize`.
 
 > [!WARNING]
-> The behavior of these methods may slightly differ between iOS 16+ and previous versions, it's recommended to test on different iOS versions.\
-If you notice some undesirable differences, you can use the `uiKitViewUseWrapper(.always)` method to fix it.
+> The behavior of these methods may differ slightly between iOS 16+ and previous versions. It's recommended to test on different iOS versions.\
+If you notice any undesirable differences, you can use the `uiKitViewUseWrapper(.always)` method to fix it.
 
 ### uiKitViewContentMode(_:)
 
